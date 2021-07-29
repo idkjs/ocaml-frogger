@@ -180,7 +180,7 @@ let init_event_handlers =
   let scaffold_state = ref(Scaffold_state.create(game_impl.init));
   let _ =
     Html.window##setInterval(
-      Js.wrap_callback(() =>
+      Js.wrap_callback(() =>{
         let () =
           Scaffold_state.render(
             config,
@@ -206,12 +206,12 @@ let init_event_handlers =
               };
             }
           );
-      ),
+      }),
       config.render_interval_ms,
     );
 
   Html.window##.onkeydown :=
-    Dom.handler(key_event =>
+    Dom.handler(key_event =>{
       let new_scaffold_state = cur_scaffold_state => {
         let handle_keypress = which_key =>
           Scaffold_state.apply_keypress(
@@ -235,7 +235,7 @@ let init_event_handlers =
 
       scaffold_state := new_scaffold_state(scaffold_state^);
       Js._true;
-    );
+    });
 };
 
 let create_canvas = (config: Frogger.Config.t) => {
@@ -273,10 +273,10 @@ let main = game => {
      promises) is the idiomatic way to handle that in OCaml. */
   let wad = Wad.create(Frogger.Config.default);
   Html.window##.onload :=
-    Html.handler(_ =>
+    Html.handler(_ =>{
       let () = initialize_and_main_loop(Frogger.Config.default, wad, game);
       Js._false;
-    );
+   } );
 };
 
 let () = {
